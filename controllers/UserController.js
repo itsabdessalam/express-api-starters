@@ -22,10 +22,11 @@ module.exports = {
 		});
 		user.save((err) => {
 			if (err) {
-				console.log('Error on creation', err);
+				throw error;
 			}
+			console.log('Successfully created!');
 		});
-		res.send('User created !');
+		res.send(user);
 	},
 
 	// Deletes user
@@ -41,7 +42,7 @@ module.exports = {
 				console.log('Successfully deleted!');
 			});
 		});
-		res.send('User deleted !');
+		res.send(user);
 	},
 
 	// Edits user
@@ -54,14 +55,14 @@ module.exports = {
 			user.address = body.address;
 			user.phones = body.phones;
 
-			user.save(function(err, user) {
+			user.save((err) => {
 				if (err) {
 					throw err;
 				}
 				console.log('Successfuly updated!');
 			});
 		});
-		res.send('User updated!');
+		res.send(user);
 	},
 
 	// Gets user
