@@ -1,5 +1,5 @@
-var router = require('express').Router();
-const UserController = require('../../controllers/UserController');
+const router = require('express').Router(),
+	UserController = require('../../controllers/UserController');
 
 router.route('/').get(UserController.index).post(UserController.create);
 router
