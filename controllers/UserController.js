@@ -47,9 +47,12 @@ module.exports = {
 	// Edits user
 	update: (req, res) => {
 		User.findById(req.params.id, (err, user) => {
-			user.firstName = req.body.firstName;
-			user.lastName = req.body.lastName;
-			user.address = req.body.address;
+			const body = req.body;
+
+			user.firstName = body.firstName;
+			user.lastName = body.lastName;
+			user.address = body.address;
+			user.phones = body.phones;
 
 			user.save(function(err, user) {
 				if (err) {
