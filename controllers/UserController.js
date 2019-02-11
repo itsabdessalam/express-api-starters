@@ -78,16 +78,11 @@ module.exports = {
 	// Searches user
 	search: (req, res) => {
 		const { firstname, zip } = req.query;
-		User.find({})
-			.where('firstName')
-			.equals(new RegExp(firstname, 'i'))
-			.where('address.zip')
-			.equals(zip)
-			.exec((err, users) => {
-				if (err) {
-					throw err;
-				}
-				res.send(users);
-			});
+		User.find({ firstName: new RegExp(firstname, 'i'), 'address.zip': zip }).exec((err, users) => {
+			if (err) {
+				throw err;
+			}
+			res.send(users);
+		});
 	}
 };
