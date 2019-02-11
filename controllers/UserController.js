@@ -5,9 +5,9 @@ module.exports = {
 	index: (req, res) => {
 		User.find({}).exec((err, users) => {
 			if (err) {
-				throw error;
+				throw err;
 			}
-			res.json(users);
+			res.send(users);
 		});
 	},
 
@@ -20,9 +20,9 @@ module.exports = {
 			address,
 			phones
 		});
-		user.save((error) => {
-			if (error) {
-				console.log('Error on creation', error);
+		user.save((err) => {
+			if (err) {
+				console.log('Error on creation', err);
 			}
 		});
 		res.send('User created !');
@@ -30,13 +30,13 @@ module.exports = {
 
 	// Deletes user
 	destroy: (req, res) => {
-		User.findById(req.params.id, (error, user) => {
-			if (error) {
-				throw error;
+		User.findById(req.params.id, (err, user) => {
+			if (err) {
+				throw err;
 			}
-			user.remove((error) => {
-				if (error) {
-					throw error;
+			user.remove((err) => {
+				if (err) {
+					throw err;
 				}
 				console.log('Successfully deleted!');
 			});
@@ -46,14 +46,14 @@ module.exports = {
 
 	// Edits user
 	update: (req, res) => {
-		User.findById(req.params.id, (error, user) => {
+		User.findById(req.params.id, (err, user) => {
 			user.firstName = req.body.firstName;
 			user.lastName = req.body.lastName;
 			user.address = req.body.address;
 
-			user.save(function(error, user) {
-				if (error) {
-					throw error;
+			user.save(function(err, user) {
+				if (err) {
+					throw err;
 				}
 				console.log('Successfuly updated!');
 			});
@@ -63,9 +63,9 @@ module.exports = {
 
 	// Gets user
 	show: (req, res) => {
-		User.findById(req.params.id, (error, user) => {
-			if (error) {
-				throw error;
+		User.findById(req.params.id, (err, user) => {
+			if (err) {
+				throw err;
 			}
 			res.send(user);
 		});
@@ -79,11 +79,11 @@ module.exports = {
 			.equals(new RegExp(firstname, 'i'))
 			.where('address.zip')
 			.equals(zip)
-			.exec((error, users) => {
-				if (error) {
-					throw error;
+			.exec((err, users) => {
+				if (err) {
+					throw err;
 				}
-				res.json(users);
+				res.send(users);
 			});
 	}
 };
