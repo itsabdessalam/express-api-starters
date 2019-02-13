@@ -7,12 +7,12 @@ module.exports = {
 			if (err) {
 				throw err;
 			}
-			res.send(users);
+			res.status(200).json(users);
 		});
 	},
 
 	// Creates user
-	create: (req, res) => {
+	store: (req, res) => {
 		const { firstName, lastName, address, phones } = req.body;
 		const user = new User({
 			firstName,
@@ -24,9 +24,8 @@ module.exports = {
 			if (err) {
 				throw error;
 			}
-			console.log('Successfully created!');
+			res.status(201).json(user);
 		});
-		res.send(user);
 	},
 
 	// Deletes user
@@ -39,10 +38,9 @@ module.exports = {
 				if (err) {
 					throw err;
 				}
-				console.log('Successfully deleted!');
+				res.status(204).json({});
 			});
 		});
-		res.send(user);
 	},
 
 	// Edits user
@@ -59,10 +57,9 @@ module.exports = {
 				if (err) {
 					throw err;
 				}
-				console.log('Successfuly updated!');
+				res.status(202).json(user);
 			});
 		});
-		res.send(user);
 	},
 
 	// Gets user
@@ -71,7 +68,7 @@ module.exports = {
 			if (err) {
 				throw err;
 			}
-			res.send(user);
+			res.status(200).json(user);
 		});
 	},
 
@@ -82,7 +79,7 @@ module.exports = {
 			if (err) {
 				throw err;
 			}
-			res.send(users);
+			res.status(200).json(users);
 		});
 	}
 };

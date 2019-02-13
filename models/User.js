@@ -1,19 +1,31 @@
 const mongoose = require('mongoose');
 module.exports = mongoose.model('User', {
-	firstName: String,
-	lastName: String,
-	address: [
-		{
-			street: String,
-			city: String,
-			zip: String
+	firstName: {
+		type: String,
+		required: true
+	},
+	lastName: {
+		type: String,
+		required: true
+	},
+	address: {
+		street: String,
+		city: {
+			type: String,
+			required: true
+		},
+		zip: {
+			type: String,
+			required: true
 		}
-	],
+	},
 	phones: [
 		{
 			label: String,
-			value: String,
-			zip: String
+			value: {
+				type: String,
+				required: true
+			}
 		}
 	]
 });
