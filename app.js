@@ -6,9 +6,11 @@ const dotenv = require('dotenv').config(),
 	cookieParser = require('cookie-parser'),
 	logger = require('morgan'),
 	mongoose = require('mongoose'),
+	helmet = require('helmet'),
 	app = express();
 
 app.use(logger('dev'));
+app.use(helmet());
 
 // body-parser
 app.use(bodyParser.json());
