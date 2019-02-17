@@ -5,12 +5,11 @@ const dotenv = require('dotenv').config(),
 	path = require('path'),
 	cookieParser = require('cookie-parser'),
 	logger = require('morgan'),
-	mongoose = require('mongoose'),
 	helmet = require('helmet'),
+	database = require('./database/index'),
 	app = express();
 
 app.use(logger('dev'));
-// security
 app.use(helmet());
 
 // body-parser
@@ -24,12 +23,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 // database connection
-mongoose.connect(process.env.DB_URL, { useCreateIndex: true, useNewUrlParser: true }, (error) => {
-	if (error) {
-		throw error;
-	}
-	console.log('🚀 Successfully connected to database !');
-});
+database.connect(process.env.DB_URL);
 // routes
 app.use(require('./routes'));
 

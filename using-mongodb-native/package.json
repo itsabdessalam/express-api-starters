@@ -1,5 +1,5 @@
 {
-    "name": "express-api",
+    "name": "using-mongodb-native",
     "version": "0.0.0",
     "private": true,
     "scripts": {
@@ -14,7 +14,6 @@
         "helmet": "^3.15.1",
         "http-errors": "~1.6.2",
         "mongodb": "^3.1.13",
-        "mongoose": "^5.4.11",
         "morgan": "~1.9.0",
         "nodemon": "^1.18.10"
     }

@@ -3,16 +3,35 @@ const User = require('../models/User');
 module.exports = {
 	// Lists all users
 	index: (req, res) => {
+		// Example with Promise
+		// User.find({})
+		//     .then((err, users) => {
+		//         res.status(200).json({
+		//             count: users.length,
+		//             users: users
+		//         });
+		//     })
+		//     .catch((err) => {
+		//         res.status(500).json({
+		//             error: err
+		//         });
+		//     });
 		User.find({}).exec((err, users) => {
 			if (err) {
-				throw err;
+				res.status(500).json({
+					error: err
+				});
+				return;
 			}
-			res.status(200).json(users);
+			res.status(200).json({
+				count: users.length,
+				users: users
+			});
 		});
 	},
 
 	// Creates user
-	store: (req, res) => {
+	store: (req, res, next) => {
 		const { firstName, lastName, address, phones } = req.body;
 		const user = new User({
 			firstName,
@@ -22,8 +41,12 @@ module.exports = {
 		});
 		user.save((err) => {
 			if (err) {
-				throw error;
+				res.status(500).json({
+					errors: err
+				});
+				return;
 			}
+
 			res.status(201).json(user);
 		});
 	},
@@ -32,12 +55,20 @@ module.exports = {
 	destroy: (req, res) => {
 		User.findById(req.params.id, (err, user) => {
 			if (err) {
-				throw err;
+				res.status(500).json({
+					error: err
+				});
+				return;
 			}
+
 			user.remove((err) => {
 				if (err) {
-					throw err;
+					res.status(500).json({
+						error: err
+					});
+					return;
 				}
+
 				res.status(204).json({});
 			});
 		});
@@ -55,8 +86,12 @@ module.exports = {
 
 			user.save((err) => {
 				if (err) {
-					throw err;
+					res.status(500).json({
+						error: err
+					});
+					return;
 				}
+
 				res.status(202).json(user);
 			});
 		});
@@ -66,8 +101,12 @@ module.exports = {
 	show: (req, res) => {
 		User.findById(req.params.id, (err, user) => {
 			if (err) {
-				throw err;
+				res.status(500).json({
+					error: err
+				});
+				return;
 			}
+
 			res.status(200).json(user);
 		});
 	},
@@ -77,9 +116,16 @@ module.exports = {
 		const { firstname, zip } = req.query;
 		User.find({ firstName: new RegExp(firstname, 'i'), 'address.zip': zip }).exec((err, users) => {
 			if (err) {
-				throw err;
+				res.status(500).json({
+					error: err
+				});
+				return;
 			}
-			res.status(200).json(users);
+
+			res.status(200).json({
+				count: users.length,
+				users
+			});
 		});
 	}
 };

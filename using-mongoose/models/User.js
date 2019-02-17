@@ -10,11 +10,12 @@ module.exports = mongoose.model('User', {
 	},
 	address: {
 		street: String,
+		number: Number,
 		city: {
 			type: String,
 			required: true
 		},
-		zip: {
+		zipCode: {
 			type: String,
 			required: true
 		}
